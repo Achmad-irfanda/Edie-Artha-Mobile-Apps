@@ -73,124 +73,122 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    Widget jarak20 = SizedBox(
+      height: 20,
+    );
     return SafeArea(
       child: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 23, 22, 22),
         body: SizedBox(
           width: size.width,
-          height: size.height,
           child: SingleChildScrollView(
             child: Stack(
               children: [
                 const Upside(
                   imgUrl: "assets/images/logo.png",
+                  forLogin: true,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 350.0),
+                Positioned(
+                  bottom: 50,
+                  left: 0,
+                  right: 0,
                   child: Container(
+                    constraints: BoxConstraints(maxHeight: size.height - 100),
                     margin: EdgeInsets.symmetric(horizontal: 10),
                     width: double.infinity,
-                    height: size.height * 0.6,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(12),
-                        topRight: Radius.circular(12),
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          "Login",
-                          style: GoogleFonts.iceland(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w800,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12)),
+                    child: IntrinsicHeight(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          jarak20,
+                          Text(
+                            "Login",
+                            style: GoogleFonts.iceland(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w800,
+                            ),
                           ),
-                        ),
-                        Text(
-                          "Selamat Datang di Edie Arta Motor",
-                          style: GoogleFonts.iceland(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w800,
-                            color: ColorName.grey,
+                          Text(
+                            "Selamat Datang di Edie Arta Motor",
+                            style: GoogleFonts.iceland(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w800,
+                              color: ColorName.grey,
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              RoundedInputField(
-                                controller: _emailController,
-                                hintText: "Email",
-                                icon: IconsaxBold.sms,
-                              ),
-                              RoundedPasswordField(
-                                controller: _passwordController,
-                              ),
-                              BlocConsumer<LoginBloc, LoginState>(
-                                listener: (context, state) {
-                                  state.maybeWhen(
-                                      orElse: () {},
-                                      loaded: (data) {
-                                        AuthLocalDatasource()
-                                            .saveAuthData(data);
+                          jarak20,
+                          Form(
+                            key: _formKey,
+                            child: Column(
+                              children: [
+                                RoundedInputField(
+                                  controller: _emailController,
+                                  hintText: "Email",
+                                  icon: IconsaxBold.sms,
+                                ),
+                                RoundedPasswordField(
+                                  controller: _passwordController,
+                                ),
+                                BlocConsumer<LoginBloc, LoginState>(
+                                  listener: (context, state) {
+                                    state.maybeWhen(
+                                        orElse: () {},
+                                        loaded: (data) {
+                                          AuthLocalDatasource()
+                                              .saveAuthData(data);
 
-                                        Navigator.pushAndRemoveUntil(context,
-                                            MaterialPageRoute(
-                                                builder: (context) {
-                                          return NavigationPage();
-                                        }), (route) => false);
-                                      },
-                                      error: (message) {
-                                        return ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            backgroundColor: Colors.red,
-                                            content: Text(message),
-                                          ),
-                                        );
-                                      });
-                                },
-                                builder: (context, state) {
-                                  return state.maybeWhen(orElse: () {
-                                    return RoundedButton(
-                                      text: 'LOGIN',
-                                      press: login,
-                                    );
-                                  }, loading: () {
-                                    return Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  });
-                                },
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              UnderPart(
-                                title: "Belum punya akun?",
-                                navigatorText: "Register disini",
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const RegisterPage()));
-                                },
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
+                                          Navigator.pushAndRemoveUntil(context,
+                                              MaterialPageRoute(
+                                                  builder: (context) {
+                                            return NavigationPage();
+                                          }), (route) => false);
+                                        },
+                                        error: (message) {
+                                          return ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              backgroundColor: Colors.red,
+                                              content: Text(message),
+                                            ),
+                                          );
+                                        });
+                                  },
+                                  builder: (context, state) {
+                                    return state.maybeWhen(orElse: () {
+                                      return RoundedButton(
+                                        text: 'LOGIN',
+                                        press: login,
+                                      );
+                                    }, loading: () {
+                                      return Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    });
+                                  },
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                UnderPart(
+                                  title: "Belum punya akun?",
+                                  navigatorText: "Register disini",
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const RegisterPage()));
+                                  },
+                                ),
+                                jarak20,
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 )

@@ -178,6 +178,7 @@ class _RegisterPageState extends State<RegisterPage> {
     );
     return SafeArea(
       child: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 23, 22, 22),
         body: SizedBox(
           width: size.width,
           height: size.height,
@@ -185,6 +186,7 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Stack(
               children: [
                 const Upside(
+                  forLogin: false,
                   imgUrl: "assets/images/logo.png",
                 ),
                 Positioned(

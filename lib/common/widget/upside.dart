@@ -2,9 +2,19 @@ import 'package:eam_app/common/constant/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+LinearGradient linearBackround = LinearGradient(
+  colors: const [
+    ColorName.green,
+    Color(0xff04340B),
+  ],
+  begin: Alignment.topCenter,
+  end: Alignment.bottomCenter,
+);
+
 class Upside extends StatelessWidget {
-  const Upside({super.key, required this.imgUrl});
+  const Upside({super.key, required this.imgUrl, required this.forLogin});
   final String imgUrl;
+  final bool forLogin;
 
   @override
   Widget build(BuildContext context) {
@@ -14,23 +24,11 @@ class Upside extends StatelessWidget {
         Container(
           width: size.width,
           height: size.height,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                ColorName.green,
-                Color(0xff04340B),
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
+          decoration: BoxDecoration(gradient: linearBackround),
           child: Padding(
-            padding: const EdgeInsets.only(top: 40),
-            child: Image.asset(
-              imgUrl,
-              alignment: Alignment.topCenter,
-              scale: 1.5,
-            ),
+            padding: EdgeInsets.only(top: (forLogin) ? 70 : 40),
+            child: Image.asset(imgUrl,
+                alignment: Alignment.topCenter, scale: (forLogin) ? 1.3 : 1.5),
           ),
         ),
       ],
