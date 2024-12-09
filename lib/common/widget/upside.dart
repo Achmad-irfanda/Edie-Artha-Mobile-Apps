@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Upside extends StatelessWidget {
-  const Upside({Key? key, required this.imgUrl}) : super(key: key);
+  const Upside({super.key, required this.imgUrl});
   final String imgUrl;
 
   @override
@@ -25,11 +25,11 @@ class Upside extends StatelessWidget {
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.only(top: 30),
+            padding: const EdgeInsets.only(top: 40),
             child: Image.asset(
               imgUrl,
               alignment: Alignment.topCenter,
-              scale: 1.3,
+              scale: 1.5,
             ),
           ),
         ),

@@ -173,6 +173,9 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    Widget jarak20 = const SizedBox(
+      height: 20,
+    );
     return SafeArea(
       child: Scaffold(
         body: SizedBox(
@@ -184,148 +187,150 @@ class _RegisterPageState extends State<RegisterPage> {
                 const Upside(
                   imgUrl: "assets/images/logo.png",
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 250.0),
+                Positioned(
+                  bottom: 10,
+                  // padding: const EdgeInsets.only(top: 250.0),
+                  right: 0,
+                  left: 0,
                   child: Container(
+                    constraints: BoxConstraints(maxHeight: size.height - 100),
                     margin: EdgeInsets.symmetric(horizontal: 10),
-                    width: double.infinity,
-                    height: size.height * 0.7,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(12),
-                        topRight: Radius.circular(12),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12)),
+                    child: IntrinsicHeight(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          jarak20,
+                          Text(
+                            "Register",
+                            style: GoogleFonts.iceland(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                          Text(
+                            "Selamat Datang di Edie Arta Motor",
+                            style: GoogleFonts.iceland(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w800,
+                              color: ColorName.grey,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Form(
+                            key: _formKey,
+                            child: Column(
+                              children: [
+                                RoundedInputField(
+                                  controller: _nameController,
+                                  hintText: "Nama",
+                                  validator: (value) {
+                                    // NULL
+                                    if (value!.isEmpty) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content:
+                                              Text('Masukkan Nama Lengkap'),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
+                                    }
+                                    return null;
+                                  },
+                                  icon: IconsaxBold.user,
+                                ),
+                                RoundedInputField(
+                                  controller: _emailController,
+                                  hintText: "Email",
+                                  keyboardType: TextInputType.emailAddress,
+                                  validator: (value) {
+                                    // NULL
+                                    if (value!.isEmpty) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content:
+                                              Text('Masukkan Alamat Email'),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
+                                      return '';
+                                    }
+                                    // VALID EMAIL
+                                    const pattern =
+                                        r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)';
+                                    final regExp = RegExp(pattern);
+
+                                    if (!regExp.hasMatch(value)) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content:
+                                              Text('Masukkan Email yang Valid'),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
+                                      return '';
+                                    }
+                                    return null;
+                                  },
+                                  icon: IconsaxBold.sms,
+                                ),
+                                RoundedInputField(
+                                  controller: _phoneController,
+                                  hintText: "No Telepon",
+                                  keyboardType: TextInputType.phone,
+                                  icon: IconsaxBold.call,
+                                  validator: (value) {
+                                    // NULL
+                                    if (value!.isEmpty) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text('Masukkan Nomor Hp'),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
+                                      return '';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                RoundedPasswordField(
+                                  controller: _passwordController,
+                                ),
+                                if (_isDisabledBtn)
+                                  allowButtonComps()
+                                else
+                                  disabledButton(),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                UnderPart(
+                                  title: "Sudah punya akun?",
+                                  navigatorText: "Login disini",
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const LoginPage()));
+                                  },
+                                ),
+                                jarak20,
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          "Register",
-                          style: GoogleFonts.iceland(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                        Text(
-                          "Selamat Datang di Edie Arta Motor",
-                          style: GoogleFonts.iceland(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w800,
-                            color: ColorName.grey,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              RoundedInputField(
-                                controller: _nameController,
-                                hintText: "Nama",
-                                validator: (value) {
-                                  // NULL
-                                  if (value!.isEmpty) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text('Masukkan Nama Lengkap'),
-                                        backgroundColor: Colors.red,
-                                      ),
-                                    );
-                                  }
-                                  return null;
-                                },
-                                icon: IconsaxBold.user,
-                              ),
-                              RoundedInputField(
-                                controller: _emailController,
-                                hintText: "Email",
-                                keyboardType: TextInputType.emailAddress,
-                                validator: (value) {
-                                  // NULL
-                                  if (value!.isEmpty) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text('Masukkan Alamat Email'),
-                                        backgroundColor: Colors.red,
-                                      ),
-                                    );
-                                    return '';
-                                  }
-                                  // VALID EMAIL
-                                  final pattern =
-                                      r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)';
-                                  final regExp = RegExp(pattern);
-
-                                  if (!regExp.hasMatch(value)) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content:
-                                            Text('Masukkan Email yang Valid'),
-                                        backgroundColor: Colors.red,
-                                      ),
-                                    );
-                                    return '';
-                                  }
-                                  return null;
-                                },
-                                icon: IconsaxBold.sms,
-                              ),
-                              RoundedInputField(
-                                controller: _phoneController,
-                                hintText: "No Telepon",
-                                keyboardType: TextInputType.phone,
-                                icon: IconsaxBold.call,
-                                validator: (value) {
-                                  // NULL
-                                  if (value!.isEmpty) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text('Masukkan Nomor Hp'),
-                                        backgroundColor: Colors.red,
-                                      ),
-                                    );
-                                    return '';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              RoundedPasswordField(
-                                controller: _passwordController,
-                              ),
-                              if (_isDisabledBtn)
-                                allowButtonComps()
-                              else
-                                disabledButton(),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              UnderPart(
-                                title: "Sudah punya akun?",
-                                navigatorText: "Login disini",
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const LoginPage()));
-                                },
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
                   ),
-                )
+                ),
               ],
             ),
           ),
