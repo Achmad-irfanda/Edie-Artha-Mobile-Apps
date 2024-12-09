@@ -329,6 +329,7 @@ mixin _$LoginState {
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
@@ -337,6 +338,7 @@ mixin _$LoginState {
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
@@ -346,6 +348,7 @@ mixin _$LoginState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+      
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,

@@ -75,14 +75,10 @@ class _RegisterPageState extends State<RegisterPage> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: ElevatedButton(
-          child: const Text(
-            'REGISTER',
-            style: TextStyle(color: ColorName.white, fontSize: 17),
-          ),
           onPressed: () {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text('Silahkan lengkap form registrasi'),
+                content: Text('Silahkan lengkapi form registrasi'),
                 backgroundColor: Colors.red,
               ),
             );
@@ -100,6 +96,10 @@ class _RegisterPageState extends State<RegisterPage> {
               fontWeight: FontWeight.bold,
               fontFamily: 'OpenSans',
             ),
+          ),
+          child: const Text(
+            'REGISTER',
+            style: TextStyle(color: ColorName.white, fontSize: 17),
           ),
         ),
       ),

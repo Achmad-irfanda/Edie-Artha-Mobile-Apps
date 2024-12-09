@@ -70,6 +70,44 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  Widget buttonComp() {
+    return BlocConsumer<LoginBloc, LoginState>(
+      listener: (context, state) {
+        state.maybeWhen(
+            orElse: () {},
+            loaded: (data) async {
+              // await AuthLocalDatasource().saveAuthData(data);
+              if (context.mounted) {
+                Navigator.pushAndRemoveUntil(context,
+                    MaterialPageRoute(builder: (context) {
+                  return NavigationPage();
+                }), (route) => false);
+              }
+            },
+            error: (message) {
+              return ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Colors.red,
+                  content: Text(message),
+                ),
+              );
+            });
+      },
+      builder: (context, state) {
+        return state.maybeWhen(orElse: () {
+          return RoundedButton(
+            text: 'LOGIN',
+            press: login,
+          );
+        }, loading: () {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        });
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -132,43 +170,7 @@ class _LoginPageState extends State<LoginPage> {
                                 RoundedPasswordField(
                                   controller: _passwordController,
                                 ),
-                                BlocConsumer<LoginBloc, LoginState>(
-                                  listener: (context, state) {
-                                    state.maybeWhen(
-                                        orElse: () {},
-                                        loaded: (data) {
-                                          AuthLocalDatasource()
-                                              .saveAuthData(data);
-
-                                          Navigator.pushAndRemoveUntil(context,
-                                              MaterialPageRoute(
-                                                  builder: (context) {
-                                            return NavigationPage();
-                                          }), (route) => false);
-                                        },
-                                        error: (message) {
-                                          return ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              backgroundColor: Colors.red,
-                                              content: Text(message),
-                                            ),
-                                          );
-                                        });
-                                  },
-                                  builder: (context, state) {
-                                    return state.maybeWhen(orElse: () {
-                                      return RoundedButton(
-                                        text: 'LOGIN',
-                                        press: login,
-                                      );
-                                    }, loading: () {
-                                      return Center(
-                                        child: CircularProgressIndicator(),
-                                      );
-                                    });
-                                  },
-                                ),
+                                buttonComp(),
                                 const SizedBox(
                                   height: 10,
                                 ),
