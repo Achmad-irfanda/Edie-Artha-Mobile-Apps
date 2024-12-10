@@ -24,7 +24,7 @@ ScaffoldFeatureController messagerComponent({
   required TypeMessager type,
 }) {
   return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    duration: const Duration(milliseconds: 600),
+    duration: const Duration(milliseconds: 1200),
     content: Text(
       message,
       style: TextStyle(fontSize: 14),
@@ -141,14 +141,14 @@ class _RegisterPageState extends State<RegisterPage> {
                   message: 'Proses Pendaftaran Berhasil, Silahkan Masuk',
                   type: TypeMessager.success);
             }
-            // Future.delayed(const Duration(milliseconds: 600), () {
-            //   if (context.mounted) {
-            //     Navigator.pushAndRemoveUntil(
-            //         context,
-            //         MaterialPageRoute(builder: (context) => LoginPage()),
-            //         (route) => false);
-            //   }
-            // });
+            Future.delayed(const Duration(milliseconds: 300), () {
+              if (context.mounted) {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    (route) => false);
+              }
+            });
           },
         );
       },
