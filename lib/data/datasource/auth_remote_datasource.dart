@@ -13,10 +13,10 @@ import '../models/response/user_response_model.dart';
 class AuthRemoteDatasource {
   Future<Either<String, AuthResponseModel>> login(
       String email, String password) async {
-    final headers = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    };
+    // final headers = {
+    //   'Accept': 'application/json',
+    //   'Content-Type': 'application/json'
+    // };
 
     final response =
         await http.post(Uri.parse("${Variables.baseUrl}api/login"), body: {
@@ -65,6 +65,8 @@ class AuthRemoteDatasource {
         Uri.parse("${Variables.baseUrl}api/register"),
         headers: headers,
         body: model.toJson());
+
+    print("res regist ${response.body}");
     if (response.statusCode == 200) {
       return Right(AuthResponseModel.fromJson(response.body));
     } else {

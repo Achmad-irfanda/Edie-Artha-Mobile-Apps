@@ -3,7 +3,6 @@
 import 'package:eam_app/common/constant/colors.dart';
 import 'package:eam_app/data/models/request/register_request_model.dart';
 import 'package:eam_app/pages/auth/login_page.dart';
-import 'package:eam_app/pages/navigation/navigation_page.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,8 +16,25 @@ import '../../common/widget/under_part.dart';
 import '../../common/widget/upside.dart';
 import '../../data/datasource/auth_local_datasource.dart';
 
+enum TypeMessager { success, failed }
+
+ScaffoldFeatureController messagerComponent({
+  required context,
+  required message,
+  required TypeMessager type,
+}) {
+  return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    duration: const Duration(milliseconds: 600),
+    content: Text(
+      message,
+      style: TextStyle(fontSize: 14),
+    ),
+    backgroundColor: (type == TypeMessager.success) ? Colors.green : Colors.red,
+  ));
+}
+
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+  const RegisterPage({super.key});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -76,12 +92,10 @@ class _RegisterPageState extends State<RegisterPage> {
         borderRadius: BorderRadius.circular(10),
         child: ElevatedButton(
           onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Silahkan lengkapi form registrasi'),
-                backgroundColor: Colors.red,
-              ),
-            );
+            messagerComponent(
+                context: context,
+                message: 'Silahkan lengkapi form registrasi',
+                type: TypeMessager.failed);
           },
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
@@ -121,17 +135,20 @@ class _RegisterPageState extends State<RegisterPage> {
           loaded: (data) async {
             // Save Token
             await AuthLocalDatasource().saveAuthData(data);
-            // Push to Home
-            // Navigator.pushAndRemoveUntil(
-            //     context,
-            //     MaterialPageRoute(builder: (context) => NavigationPage()),
-            //     (route) => false);
             if (context.mounted) {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                  (route) => false);
+              messagerComponent(
+                  context: context,
+                  message: 'Proses Pendaftaran Berhasil, Silahkan Masuk',
+                  type: TypeMessager.success);
             }
+            // Future.delayed(const Duration(milliseconds: 600), () {
+            //   if (context.mounted) {
+            //     Navigator.pushAndRemoveUntil(
+            //         context,
+            //         MaterialPageRoute(builder: (context) => LoginPage()),
+            //         (route) => false);
+            //   }
+            // });
           },
         );
       },
@@ -189,7 +206,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   forLogin: false,
                   imgUrl: "assets/images/logo.png",
                 ),
-
                 Positioned(
                   bottom: 10,
                   // padding: const EdgeInsets.only(top: 250.0),

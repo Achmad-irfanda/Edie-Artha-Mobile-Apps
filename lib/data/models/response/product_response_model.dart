@@ -52,16 +52,16 @@ class Data {
 }
 
 class Product {
-  final int? id;
-  final String? kode;
-  final String? nama;
-  final String? deskripsi;
-  final String? varian;
-  final String? harga;
-  final String? status;
-  final String? stok;
-  final String? thumbnail;
-  final Image? image;
+  final dynamic? id;
+  final dynamic? kode;
+  final dynamic? nama;
+  final dynamic? deskripsi;
+  final dynamic? varian;
+  final dynamic? harga;
+  final dynamic? status;
+  final dynamic? stok;
+  final dynamic? thumbnail;
+  final dynamic? image;
 
   Product({
     this.id,
