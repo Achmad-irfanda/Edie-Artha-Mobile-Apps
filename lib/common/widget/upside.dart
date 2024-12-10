@@ -19,19 +19,17 @@ class Upside extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Stack(
-      children: [
-        Container(
-          width: size.width,
-          height: size.height,
-          decoration: BoxDecoration(gradient: linearBackround),
-          child: Padding(
-            padding: EdgeInsets.only(top: (forLogin) ? 70 : 40),
-            child: Image.asset(imgUrl,
-                alignment: Alignment.topCenter, scale: (forLogin) ? 1.3 : 1.5),
-          ),
-        ),
-      ],
+    return Container(
+      width: size.width,
+      height: (forLogin) ? 
+      
+      size.height * 1.01 : size.height * 1.05,
+      decoration: BoxDecoration(gradient: linearBackround),
+      child: Padding(
+        padding: EdgeInsets.only(top: (forLogin) ? 70 : 40),
+        child: Image.asset(imgUrl,
+            alignment: Alignment.topCenter, scale: (forLogin) ? 1.3 : 1.5),
+      ),
     );
   }
 }

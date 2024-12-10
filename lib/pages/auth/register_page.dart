@@ -181,7 +181,7 @@ class _RegisterPageState extends State<RegisterPage> {
         backgroundColor: const Color.fromARGB(255, 23, 22, 22),
         body: SizedBox(
           width: size.width,
-          height: size.height,
+          height: size.height * 2,
           child: SingleChildScrollView(
             child: Stack(
               children: [
@@ -189,6 +189,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   forLogin: false,
                   imgUrl: "assets/images/logo.png",
                 ),
+
                 Positioned(
                   bottom: 10,
                   // padding: const EdgeInsets.only(top: 250.0),
