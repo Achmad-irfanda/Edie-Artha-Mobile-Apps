@@ -105,6 +105,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ]),
               ),
+
+              //
               BlocBuilder<ProductBloc, ProductState>(
                 builder: (context, state) {
                   return state.maybeWhen(
@@ -179,6 +181,16 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ],
+          ),
+          Container(
+            height: 180,
+            width: 180,
+            color: Colors.amber,
+            child: Image.network(
+              "http://10.0.2.2:8000/storage/uploads/sparepart/sptDYT-878789-21-1714901557.jpg",
+              scale: 1.0,
+              fit: BoxFit.fill,
+            ),
           ),
         ],
       )),

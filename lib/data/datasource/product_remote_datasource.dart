@@ -23,6 +23,11 @@ class ProductRemoteDatasource {
       headers: headers,
     );
 
+      final mess = jsonDecode(response.body);
+    
+
+    print("respnse ${response.statusCode}  ${mess}");
+
     if (response.statusCode == 200) {
       return Right(ProductResponseModel.fromJson(response.body));
     } else {
