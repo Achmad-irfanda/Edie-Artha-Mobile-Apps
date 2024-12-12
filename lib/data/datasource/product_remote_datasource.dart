@@ -5,7 +5,6 @@ import 'package:eam_app/common/constant/variables.dart';
 import 'package:eam_app/data/datasource/auth_local_datasource.dart';
 import 'package:eam_app/data/models/request/trx_product_request_model.dart';
 import 'package:eam_app/data/models/response/product_response_model.dart';
-import 'package:eam_app/data/models/response/trx_bengkel_response_model.dart';
 import 'package:eam_app/data/models/response/trx_product_response_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -23,15 +22,11 @@ class ProductRemoteDatasource {
       headers: headers,
     );
 
-      final mess = jsonDecode(response.body);
-    
-
-    print("respnse ${response.statusCode}  ${mess}");
-
     if (response.statusCode == 200) {
       return Right(ProductResponseModel.fromJson(response.body));
     } else {
       final mess = jsonDecode(response.body)['meta']['message'];
+      print("mess $mess"); 
       return Left(mess);
     }
   }

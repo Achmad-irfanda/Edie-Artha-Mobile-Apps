@@ -33,3 +33,14 @@ class TextFieldBengkel extends StatelessWidget {
     );
   }
 }
+
+
+
+class ImageFieldComponent extends StatelessWidget {
+  const ImageFieldComponent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}

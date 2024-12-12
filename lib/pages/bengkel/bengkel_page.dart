@@ -311,6 +311,7 @@ class _BengkelPageState extends State<BengkelPage> {
                               controller: _alamatController,
                               label: 'Alamat',
                             ),
+                            ImageFieldComp(), 
                           ],
                         ),
                       ),
