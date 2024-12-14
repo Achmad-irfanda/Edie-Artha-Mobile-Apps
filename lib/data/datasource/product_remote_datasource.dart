@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 class ProductRemoteDatasource {
   Future<Either<String, ProductResponseModel>> product() async {
     final token = await AuthLocalDatasource().getToken();
+    print("tokennnya $token"); 
     final headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
@@ -54,6 +55,7 @@ class ProductRemoteDatasource {
   Future<Either<String, TrxProductResponse>> transaction(
       TrxProductRequestModel model) async {
     final token = await AuthLocalDatasource().getToken();
+    
     final headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
@@ -83,7 +85,7 @@ class ProductRemoteDatasource {
     };
 
     final response = await http.get(
-      Uri.parse("${Variables.baseUrl}api/trx/product?id=${id}"),
+      Uri.parse("${Variables.baseUrl}api/trx/product?id=$id"),
       headers: headers,
     );
 

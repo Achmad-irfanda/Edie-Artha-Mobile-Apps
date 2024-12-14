@@ -22,7 +22,6 @@ class Upside extends StatelessWidget {
     return Container(
       width: size.width,
       height: (forLogin) ? 
-      
       size.height * 1.01 : size.height * 1.05,
       decoration: BoxDecoration(gradient: linearBackround),
       child: Padding(

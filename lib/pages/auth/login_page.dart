@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
         state.maybeWhen(
             orElse: () {},
             loaded: (data) async {
-              // await AuthLocalDatasource().saveAuthData(data);
+              await AuthLocalDatasource().saveAuthData(data);
               if (context.mounted) {
                 Navigator.pushAndRemoveUntil(context,
                     MaterialPageRoute(builder: (context) {

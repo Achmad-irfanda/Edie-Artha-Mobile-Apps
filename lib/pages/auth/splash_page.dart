@@ -2,7 +2,6 @@
 
 import 'package:eam_app/common/constant/colors.dart';
 import 'package:eam_app/data/datasource/auth_local_datasource.dart';
-import 'package:eam_app/pages/auth/login_page.dart';
 import 'package:eam_app/pages/auth/register_page.dart';
 import 'package:eam_app/pages/navigation/navigation_page.dart';
 import 'package:flutter/material.dart';

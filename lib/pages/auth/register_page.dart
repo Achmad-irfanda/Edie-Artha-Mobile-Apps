@@ -133,8 +133,6 @@ class _RegisterPageState extends State<RegisterPage> {
             );
           },
           loaded: (data) async {
-            // Save Token
-            await AuthLocalDatasource().saveAuthData(data);
             if (context.mounted) {
               messagerComponent(
                   context: context,
@@ -196,7 +194,10 @@ class _RegisterPageState extends State<RegisterPage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 23, 22, 22),
-        body: SizedBox(
+        body:  Container(
+          decoration: BoxDecoration(
+            gradient: 
+          ),
           width: size.width,
           height: size.height * 2,
           child: SingleChildScrollView(

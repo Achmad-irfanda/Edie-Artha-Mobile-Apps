@@ -32,6 +32,7 @@ class _NavigationPageState extends State<NavigationPage> {
   @override
   void initState() {
     super.initState();
+
     setState(() {
       _pageIndex = widget.index;
     });
@@ -42,6 +43,8 @@ class _NavigationPageState extends State<NavigationPage> {
       AboutPage(),
     ];
   }
+
+   
 
   Widget body() {
     switch (_pageIndex) {

@@ -5,6 +5,7 @@ import 'package:eam_app/data/datasource/auth_local_datasource.dart';
 import 'package:eam_app/data/models/request/user_request_model.dart';
 import 'package:eam_app/data/models/response/auth_response_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../common/constant/variables.dart';
 import '../models/request/register_request_model.dart';
@@ -13,18 +14,20 @@ import '../models/response/user_response_model.dart';
 class AuthRemoteDatasource {
   Future<Either<String, AuthResponseModel>> login(
       String email, String password) async {
-    // final headers = {
-    //   'Accept': 'application/json',
-    //   'Content-Type': 'application/json'
-    // };
+    final headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    };
 
-    final response =
-        await http.post(Uri.parse("${Variables.baseUrl}api/login"), body: {
-      'email': email,
-      'password': password,
-    });
+    final response = await http.post(Uri.parse("${Variables.baseUrl}api/login"),
+        body: {
+          'email': email,
+          'password': password,
+        },
+        headers: headers);
 
     if (response.statusCode == 200) {
+      await AuthLocalDatasource().saveEmailPass(email: email, passw: password);
       return Right(AuthResponseModel.fromJson(response.body));
     } else {
       final mess = jsonDecode(response.body)['data']['message'];
