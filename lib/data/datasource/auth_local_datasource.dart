@@ -52,13 +52,13 @@ class AuthLocalDatasource {
     return authJson.isNotEmpty;
   }
 
-  Future saveEmailPass({
-    required email,
-    required passw,
-  }) async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    await sp.setString("lastLogin", dateNow);
-    await sp.setString('email', email);
-    await sp.setString('password', passw);
-  }
+  // Future saveEmailPass({
+  //   required email,
+  //   required passw,
+  // }) async {
+  //   final SharedPreferences sp = await SharedPreferences.getInstance();
+  //   await sp.setString("lastLogin", dateNow);
+  //   await sp.setString('email', email);
+  //   await sp.setString('password', passw);
+  // }
 }

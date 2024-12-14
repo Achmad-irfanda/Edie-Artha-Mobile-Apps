@@ -5,11 +5,10 @@ import 'package:eam_app/pages/bengkel/trx_bengkel_page.dart';
 import 'package:eam_app/pages/bengkel/widget/text_area_bengkel.dart';
 import 'package:eam_app/pages/bengkel/widget/text_field_bengkel.dart';
 import 'package:ficonsax/ficonsax.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 
 import '../../common/constant/colors.dart';
 import '../../common/constant/images.dart';
@@ -75,8 +74,8 @@ class _BengkelPageState extends State<BengkelPage> {
     String deskripsi = _deskripsiController.text.trim();
     String kendaraan = _kendaraanController.text.trim();
     String plat = _platController.text.trim();
-    String gambar = await MultipartFile.fromFile(,
-              filename: getNameFile( )),
+    String gambar =
+        (await http.MultipartFile.fromPath('path', valuesImageComp!)) as String;
 
     final model = BengkelRequestModel(
       alamat: alamat,
@@ -84,12 +83,11 @@ class _BengkelPageState extends State<BengkelPage> {
       deskripsi: deskripsi,
       kendaraan: kendaraan,
       platNomor: plat,
-      gambar: gambar, 
+      gambar: gambar,
     );
     context.read<BengkelBloc>().add(BengkelEvent.bengkel(model));
   }
 
-  @override
   Widget header() {
     return Container(
       padding: EdgeInsets.only(top: 30),
@@ -315,8 +313,7 @@ class _BengkelPageState extends State<BengkelPage> {
                               controller: _alamatController,
                               label: 'Alamat',
                             ),
-
-                            ImageFieldComp(), 
+                            ImageFieldComp(),
                           ],
                         ),
                       ),
