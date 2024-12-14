@@ -111,89 +111,80 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    Widget jarak20 = SizedBox(
-      height: 20,
-    );
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 23, 22, 22),
-        body: SizedBox(
-          width: size.width,
+        body: Container(
+          decoration: BoxDecoration(gradient: linearBackround),
           child: SingleChildScrollView(
-            child: Stack(
+            child: Column(
               children: [
-                const Upside(
-                  imgUrl: "assets/images/logo.png",
-                  forLogin: true,
-                ),
-                Positioned(
-                  bottom: 50,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    constraints: BoxConstraints(maxHeight: size.height - 100),
-                    margin: EdgeInsets.symmetric(horizontal: 10),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12)),
-                    child: IntrinsicHeight(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          jarak20,
-                          Text(
-                            "Login",
-                            style: GoogleFonts.iceland(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w800,
-                            ),
+                jar(sized: 40),
+                imgLogoPage(),
+                jar(sized: 28),
+                Container(
+                  constraints: BoxConstraints(maxHeight: size.height - 100),
+                  margin: EdgeInsets.symmetric(horizontal: 10),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12)),
+                  child: IntrinsicHeight(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        jar(sized: 20),
+                        Text(
+                          "Login",
+                          style: GoogleFonts.iceland(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w800,
                           ),
-                          Text(
-                            "Selamat Datang di Edie Arta Motor",
-                            style: GoogleFonts.iceland(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w800,
-                              color: ColorName.grey,
-                            ),
+                        ),
+                        Text(
+                          "Selamat Datang di Edie Arta Motor",
+                          style: GoogleFonts.iceland(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w800,
+                            color: ColorName.grey,
                           ),
-                          jarak20,
-                          Form(
-                            key: _formKey,
-                            child: Column(
-                              children: [
-                                RoundedInputField(
-                                  controller: _emailController,
-                                  hintText: "Email",
-                                  icon: IconsaxBold.sms,
-                                ),
-                                RoundedPasswordField(
-                                  controller: _passwordController,
-                                ),
-                                buttonComp(),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                UnderPart(
-                                  title: "Belum punya akun?",
-                                  navigatorText: "Register disini",
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const RegisterPage()));
-                                  },
-                                ),
-                                jarak20,
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
+                        ),
+                        jar(sized: 20),
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              RoundedInputField(
+                                controller: _emailController,
+                                hintText: "Email",
+                                icon: IconsaxBold.sms,
+                              ),
+                              RoundedPasswordField(
+                                controller: _passwordController,
+                              ),
+                              buttonComp(),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              UnderPart(
+                                title: "Belum punya akun?",
+                                navigatorText: "Register disini",
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const RegisterPage()));
+                                },
+                              ),
+                              jar(sized: 20),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                )
+                ),
+                jar(sized: 20),
               ],
             ),
           ),

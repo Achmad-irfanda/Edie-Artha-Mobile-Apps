@@ -5,7 +5,6 @@ import 'package:eam_app/data/datasource/auth_local_datasource.dart';
 import 'package:eam_app/data/models/request/user_request_model.dart';
 import 'package:eam_app/data/models/response/auth_response_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../common/constant/variables.dart';
 import '../models/request/register_request_model.dart';
