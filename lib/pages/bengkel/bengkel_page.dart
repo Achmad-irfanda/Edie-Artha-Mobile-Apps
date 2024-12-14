@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart';
 
 import '../../common/constant/colors.dart';
 import '../../common/constant/images.dart';
@@ -74,6 +75,8 @@ class _BengkelPageState extends State<BengkelPage> {
     String deskripsi = _deskripsiController.text.trim();
     String kendaraan = _kendaraanController.text.trim();
     String plat = _platController.text.trim();
+    String gambar = await MultipartFile.fromFile(,
+              filename: getNameFile( )),
 
     final model = BengkelRequestModel(
       alamat: alamat,
@@ -81,6 +84,7 @@ class _BengkelPageState extends State<BengkelPage> {
       deskripsi: deskripsi,
       kendaraan: kendaraan,
       platNomor: plat,
+      gambar: gambar, 
     );
     context.read<BengkelBloc>().add(BengkelEvent.bengkel(model));
   }
@@ -311,6 +315,7 @@ class _BengkelPageState extends State<BengkelPage> {
                               controller: _alamatController,
                               label: 'Alamat',
                             ),
+
                             ImageFieldComp(), 
                           ],
                         ),
