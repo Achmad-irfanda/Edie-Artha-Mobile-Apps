@@ -141,7 +141,7 @@ class _BengkelPageState extends State<BengkelPage> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),
-              content: Container(
+              content: SizedBox(
                 height: 150,
                 child: Center(
                   child: Column(

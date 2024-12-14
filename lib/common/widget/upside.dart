@@ -26,8 +26,8 @@ class Upside extends StatelessWidget {
       decoration: BoxDecoration(gradient: linearBackround),
       child: Padding(
         padding: EdgeInsets.only(top: (forLogin) ? 70 : 40),
-        child: Image.asset(imgUrl,
-            alignment: Alignment.topCenter, scale: (forLogin) ? 1.3 : 1.5),
+        child: Image.asset(
+          imgUrl, alignment: Alignment.topCenter, scale: (forLogin) ? 1.3 : 1.5),
       ),
     );
   }

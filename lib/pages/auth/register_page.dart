@@ -194,10 +194,8 @@ class _RegisterPageState extends State<RegisterPage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 23, 22, 22),
-        body:  Container(
-          decoration: BoxDecoration(
-            gradient: 
-          ),
+        body: Container(
+          decoration: BoxDecoration(gradient: linearBackround),
           width: size.width,
           height: size.height * 2,
           child: SingleChildScrollView(

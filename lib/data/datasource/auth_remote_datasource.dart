@@ -27,7 +27,6 @@ class AuthRemoteDatasource {
         headers: headers);
 
     if (response.statusCode == 200) {
-      await AuthLocalDatasource().saveEmailPass(email: email, passw: password);
       return Right(AuthResponseModel.fromJson(response.body));
     } else {
       final mess = jsonDecode(response.body)['data']['message'];
