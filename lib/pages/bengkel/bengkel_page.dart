@@ -75,8 +75,6 @@ class _BengkelPageState extends State<BengkelPage> {
     String deskripsi = _deskripsiController.text.trim();
     String kendaraan = _kendaraanController.text.trim();
     String plat = _platController.text.trim();
-    String filePath = valuesImageComp!; 
-    var gambar = await http.MultipartFile.fromPath('gambar', filePath);
 
     final model = BengkelRequestModel(
       alamat: alamat,
@@ -84,9 +82,7 @@ class _BengkelPageState extends State<BengkelPage> {
       deskripsi: deskripsi,
       kendaraan: kendaraan,
       platNomor: plat,
-      gambar: gambar,
     );
-
 
     context.read<BengkelBloc>().add(BengkelEvent.bengkel(model));
   }
@@ -357,3 +353,58 @@ class _BengkelPageState extends State<BengkelPage> {
     );
   }
 }
+
+
+
+
+
+
+
+// //import 'dart:convert';
+// import 'package:http/http.dart' as http;
+// import 'package:dartz/dartz.dart'; // Make sure to import Either
+// import 'your_model_file.dart'; // Import your models
+// import 'auth_local_datasource.dart'; // Import your AuthLocalDatasource
+// import 'variables.dart'; // Import your Variables
+
+// Future<Either<String, BengkelResponseModel>> transaction(
+//     BengkelRequestModel model) async {
+//   final token = await AuthLocalDatasource().getToken();
+//   final headers = {
+//     'Accept': 'application/json',
+//     'Authorization': 'Bearer $token'
+//   };
+
+//   // Create a multipart request
+//   var request = http.MultipartRequest(
+//     'POST',
+//     Uri.parse("${Variables.baseUrl}api/trx/workshop"),
+//   );
+
+//   // Add headers to the request
+//   request.headers.addAll(headers);
+
+//   // Add the fields from the model to the request
+//   request.fields['description'] = model.description; // Add other fields as necessary
+
+//   // If you have a file path, create a MultipartFile
+//   String filePath = valuesImageComp!; // Ensure this is a valid file path
+//   var gambar = await http.MultipartFile.fromPath('gambar', filePath);
+  
+//   // Add the MultipartFile to the request
+//   request.files.add(gambar);
+
+//   // Send the request
+//   var response = await request.send();
+
+//   // Check the response
+//   if (response.statusCode == 200) {
+//     // Convert the response to a string
+//     var responseString = await response.stream.bytesToString();
+//     return Right(BengkelResponseModel.fromJson(jsonDecode(responseString)));
+//   } else {
+//     // Handle error response
+//     final mess = jsonDecode(await response.stream.bytesToString())['meta']['message'];
+//     return Left(mess);
+//   }
+// }

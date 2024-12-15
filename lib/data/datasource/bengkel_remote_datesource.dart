@@ -6,12 +6,13 @@ import 'package:eam_app/data/datasource/auth_local_datasource.dart';
 import 'package:eam_app/data/models/request/bengkel_request_model.dart';
 import 'package:eam_app/data/models/response/bengkel_response_model.dart';
 import 'package:eam_app/data/models/response/trx_bengkel_response_model.dart';
+import 'package:eam_app/pages/bengkel/widget/text_area_bengkel.dart';
 
 import 'package:http/http.dart' as http;
 
 class BengkelRemoteDatesource {
 
-  
+
   Future<Either<String, BengkelResponseModel>> transaction(
       BengkelRequestModel model) async {
     final token = await AuthLocalDatasource().getToken();
@@ -26,6 +27,9 @@ class BengkelRemoteDatesource {
       headers: headers,
       body: model.toJson(),
     );
+
+    String filePath = valuesImageComp!;
+    var gambar = await http.MultipartFile.fromPath('gambar', filePath);
 
     print('response $response'); 
 
