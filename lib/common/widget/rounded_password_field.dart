@@ -8,12 +8,14 @@ class RoundedPasswordField extends StatefulWidget {
   final TextEditingController? controller;
   final String label;
   final validator;
+  final onChange;
 
   const RoundedPasswordField({
     super.key,
     required this.label,
     this.validator,
     this.controller,
+    this.onChange,  
   });
 
   @override
@@ -32,6 +34,7 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
             obscureText: hide,
             cursorColor: ColorName.green,
             validator: widget.validator,
+            onChanged: widget.onChange,
             controller: widget.controller,
             decoration: InputDecoration(
               errorStyle: TextStyle(height: 0),

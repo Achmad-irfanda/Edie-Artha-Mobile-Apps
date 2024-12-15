@@ -1,5 +1,7 @@
 // ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
 
+import 'dart:async';
+
 import 'package:eam_app/common/constant/colors.dart';
 import 'package:eam_app/data/models/request/register_request_model.dart';
 import 'package:eam_app/pages/auth/login_page.dart';
@@ -14,7 +16,6 @@ import '../../common/widget/rounded_input_field.dart';
 import '../../common/widget/rounded_password_field.dart';
 import '../../common/widget/under_part.dart';
 import '../../common/widget/upside.dart';
-import '../../data/datasource/auth_local_datasource.dart';
 
 enum TypeMessager { success, failed }
 
@@ -61,7 +62,8 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _konfirmController = TextEditingController();
 
-  bool _isDisabledBtn = false;
+  bool _isDisabledBtn = true;
+  bool _konPasInvalid = false;
 
   @override
   void initState() {
@@ -70,6 +72,8 @@ class _RegisterPageState extends State<RegisterPage> {
     _nameController.addListener(_validateFields);
     _phoneController.addListener(_validateFields);
     _passwordController.addListener(_validateFields);
+    _konfirmController.addListener(_validateFields);
+    // validCheck();
   }
 
   void _validateFields() async {
@@ -77,16 +81,29 @@ class _RegisterPageState extends State<RegisterPage> {
     final name = _nameController.text;
     final phone = _phoneController.text;
     final pass = _passwordController.text;
+    final konf = _konfirmController.text;
 
-    // Cek validasi di sini, misalnya, jika kedua TextField harus diisi.
-    bool isValid = email.isNotEmpty &&
+    bool isValid = (email.isNotEmpty &&
         name.isNotEmpty &&
         phone.isNotEmpty &&
-        pass.isNotEmpty;
+        pass.isNotEmpty &&
+        konf.isNotEmpty);
 
-    setState(() {
-      _isDisabledBtn = isValid;
-    });
+    bool konInvaid = (pass != konf);
+
+    if (isValid == true) {
+      if (konInvaid) {
+        setState(() {
+          _konPasInvalid = true;
+          _isDisabledBtn = true;
+        });
+      } else {
+        setState(() {
+          _konPasInvalid = false;
+          _isDisabledBtn = false;
+        });
+      }
+    }
   }
 
   @override
@@ -95,6 +112,8 @@ class _RegisterPageState extends State<RegisterPage> {
     _passwordController.dispose();
     _nameController.dispose();
     _phoneController.dispose();
+    _konfirmController.dispose();
+    // myTimer?.cancel();
     super.dispose();
   }
 
@@ -199,11 +218,29 @@ class _RegisterPageState extends State<RegisterPage> {
     context.read<RegisterBloc>().add(RegisterEvent.register(model));
   }
 
-  Future<String> validCheck()async {
-    if(_passwordController != ""){
-       
-    }
-  }
+  // String message = "";
+  // bool isValids = false;
+
+  // void validCheck() {
+  //   myTimer = Timer.periodic(const Duration(seconds: 1), (_) {
+  //     if (_passwordController.text != _konfirmController.text) {
+  //       setState(() {
+  //         isValids = false;
+  //         message =
+  //             "Konfirmasi Password Tidak Valid, Mohon Periksa Kembali Password Anda";
+  //       });
+  //     }
+
+  //     if (_passwordController.text == _konfirmController.text) {
+  //       setState(() {
+  //         isValids = true;
+  //         message = "";
+  //       });
+  //     }
+  //   });
+  // }
+
+  // Timer? myTimer;
 
   @override
   Widget build(BuildContext context) {
@@ -213,7 +250,9 @@ class _RegisterPageState extends State<RegisterPage> {
       child: Scaffold(
         body: Container(
           decoration: BoxDecoration(gradient: linearBackround),
+          height: size.height,
           child: SingleChildScrollView(
+            padding: EdgeInsets.only(bottom: 100),
             child: Column(
               children: [
                 jar(sized: 40),
@@ -222,7 +261,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   sized: 28,
                 ),
                 Container(
-                  constraints: BoxConstraints(maxHeight: size.height - 100),
+                  constraints: BoxConstraints(maxHeight: size.height * 1.1),
                   margin: EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -329,23 +368,27 @@ class _RegisterPageState extends State<RegisterPage> {
                               RoundedPasswordField(
                                 label: 'Konfirmasi Password',
                                 controller: _konfirmController,
-                                validator: (value) {
-                                  if (value != _passwordController) {
-                                    print("password tida"); 
-                                    return 'Passowrd Tidak Sama';
-                                  } else {
-                                    return null;
-                                  }
-                                },
                               ),
-                              
-
-
-
+                              if (_konPasInvalid == true)
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 27, vertical: 2),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      "Konfirmasi Password Tidak Valid, Mohon Periksa Kembali Password Anda",
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  ),
+                                ),
+                              jar(sized: 10),
                               if (_isDisabledBtn)
-                                allowButtonComps()
+                                disabledButton()
                               else
-                                disabledButton(),
+                                allowButtonComps(),
                               jar(sized: 10),
                               UnderPart(
                                 title: "Sudah punya akun?",
