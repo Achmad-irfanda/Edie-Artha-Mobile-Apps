@@ -13,17 +13,13 @@ import '../models/response/user_response_model.dart';
 class AuthRemoteDatasource {
   Future<Either<String, AuthResponseModel>> login(
       String email, String password) async {
-    final headers = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    };
-
-    final response = await http.post(Uri.parse("${Variables.baseUrl}api/login"),
-        body: {
-          'email': email,
-          'password': password,
-        },
-        headers: headers);
+    final response = await http.post(
+      Uri.parse("${Variables.baseUrl}api/login"),
+      body: {
+        'email': email,
+        'password': password,
+      },
+    );
 
     if (response.statusCode == 200) {
       return Right(AuthResponseModel.fromJson(response.body));
@@ -67,7 +63,6 @@ class AuthRemoteDatasource {
         headers: headers,
         body: model.toJson());
 
-    print("res regist ${response.body}");
     if (response.statusCode == 200) {
       return Right(AuthResponseModel.fromJson(response.body));
     } else {
@@ -88,7 +83,7 @@ class AuthRemoteDatasource {
       Uri.parse("${Variables.baseUrl}api/user"),
       headers: headers,
     );
-    print(response.body);
+
     if (response.statusCode == 200) {
       return Right(UserResponseModel.fromJson(response.body));
     } else {
@@ -102,6 +97,7 @@ class AuthRemoteDatasource {
     final token = await AuthLocalDatasource().getToken();
     var request = http.MultipartRequest(
         'POST', Uri.parse("${Variables.baseUrl}api/update-profile"));
+
     request.headers.addAll({
       'Accept': 'application/json',
       'Content-Type': 'application/json',
@@ -147,8 +143,6 @@ class AuthRemoteDatasource {
       headers: headers,
       body: body,
     );
-
-    print(response.body);
 
     if (response.statusCode == 200) {
       final mess = jsonDecode(response.body)['data']['message'];

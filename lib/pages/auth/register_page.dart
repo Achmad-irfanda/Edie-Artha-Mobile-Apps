@@ -25,6 +25,7 @@ Widget jar({required double sized}) {
   );
 }
 
+
 Widget imgLogoPage() {
   return Image.asset(
     "assets/images/logo.png",

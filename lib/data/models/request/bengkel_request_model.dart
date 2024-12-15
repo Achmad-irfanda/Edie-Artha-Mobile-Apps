@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
+
+import 'package:http/http.dart' as http;
 
 class BengkelRequestModel {
   final String alamat;
@@ -6,7 +9,7 @@ class BengkelRequestModel {
   final String deskripsi;
   final String kendaraan;
   final String platNomor;
-  final String gambar; 
+  final http.MultipartFile? gambar;
 
   BengkelRequestModel({
     required this.alamat,
@@ -14,7 +17,7 @@ class BengkelRequestModel {
     required this.deskripsi,
     required this.kendaraan,
     required this.platNomor,
-    required this.gambar, 
+    required this.gambar,
   });
 
   Map<String, dynamic> toMap() {
@@ -24,6 +27,7 @@ class BengkelRequestModel {
       'kendala': kendala,
       'jenis_kendaraan': kendaraan,
       'plat_nomor': platNomor,
+      'gambar': gambar,
     };
   }
 
@@ -34,7 +38,7 @@ class BengkelRequestModel {
       deskripsi: map['deskripsi'] as String,
       kendaraan: map['jenis_kendaraan'] as String,
       platNomor: map['plat_nomor'] as String,
-      gambar:  map['gambar'] as String, 
+      
     );
   }
 

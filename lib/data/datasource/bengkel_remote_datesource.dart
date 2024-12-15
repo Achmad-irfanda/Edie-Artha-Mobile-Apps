@@ -10,6 +10,8 @@ import 'package:eam_app/data/models/response/trx_bengkel_response_model.dart';
 import 'package:http/http.dart' as http;
 
 class BengkelRemoteDatesource {
+
+  
   Future<Either<String, BengkelResponseModel>> transaction(
       BengkelRequestModel model) async {
     final token = await AuthLocalDatasource().getToken();
@@ -24,6 +26,8 @@ class BengkelRemoteDatesource {
       headers: headers,
       body: model.toJson(),
     );
+
+    print('response $response'); 
 
     if (response.statusCode == 200) {
       return Right(BengkelResponseModel.fromJson(response.body));

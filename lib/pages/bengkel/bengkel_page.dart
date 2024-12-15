@@ -1,5 +1,6 @@
 import 'package:eam_app/bloc/bengkel/bengkel_bloc.dart';
 import 'package:eam_app/data/models/request/bengkel_request_model.dart';
+import 'package:eam_app/pages/auth/register_page.dart';
 import 'package:eam_app/pages/bengkel/bengkel_detail.dart';
 import 'package:eam_app/pages/bengkel/trx_bengkel_page.dart';
 import 'package:eam_app/pages/bengkel/widget/text_area_bengkel.dart';
@@ -74,8 +75,8 @@ class _BengkelPageState extends State<BengkelPage> {
     String deskripsi = _deskripsiController.text.trim();
     String kendaraan = _kendaraanController.text.trim();
     String plat = _platController.text.trim();
-    String gambar =
-        (await http.MultipartFile.fromPath('path', valuesImageComp!)) as String;
+    String filePath = valuesImageComp!; 
+    var gambar = await http.MultipartFile.fromPath('gambar', filePath);
 
     final model = BengkelRequestModel(
       alamat: alamat,
@@ -85,6 +86,8 @@ class _BengkelPageState extends State<BengkelPage> {
       platNomor: plat,
       gambar: gambar,
     );
+
+
     context.read<BengkelBloc>().add(BengkelEvent.bengkel(model));
   }
 
@@ -234,6 +237,7 @@ class _BengkelPageState extends State<BengkelPage> {
     );
   }
 
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
@@ -242,7 +246,7 @@ class _BengkelPageState extends State<BengkelPage> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
+            colors: const [
               Color(0xff02F80B),
               Color(0xff194E1A),
             ], // Warna gradien
@@ -314,6 +318,19 @@ class _BengkelPageState extends State<BengkelPage> {
                               label: 'Alamat',
                             ),
                             ImageFieldComp(),
+                            jar(sized: 20),
+                            Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(
+                                      color: ColorName.green,
+                                    ),
+                                    color: const Color.fromARGB(
+                                        255, 194, 221, 198)),
+                                padding: EdgeInsets.all(8),
+                                child: Text(
+                                    'Harga di dalam kota akan dikenakan biaya transport Rp. 5000, sedangkan diluar kota Rp. 10.000')),
+                            jar(sized: 14)
                           ],
                         ),
                       ),

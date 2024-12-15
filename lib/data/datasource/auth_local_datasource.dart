@@ -1,4 +1,4 @@
-import 'package:eam_app/data/datasource/auth_remote_datasource.dart';
+
 import 'package:eam_app/data/models/response/auth_response_model.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,16 +39,6 @@ class AuthLocalDatasource {
   Future<bool> isLogin() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     final authJson = pref.getString('auth') ?? '';
-
-    String lastLogin = pref.getString("lastLogin") ?? dateNow;
-    bool bool1 = (DateTime.parse(dateFrormats.format(DateTime.parse(lastLogin)))
-        .isAfter(DateTime.parse(dateFrormats.format(DateTime.now()))));
-    if (bool1) {
-      String email = pref.getString("email") ?? "";
-      String pasword = pref.getString("password") ?? "";
-      await AuthRemoteDatasource().login(email, pasword);
-    }
-
     return authJson.isNotEmpty;
   }
 
