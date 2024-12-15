@@ -159,6 +159,7 @@ class _LoginPageState extends State<LoginPage> {
                                 icon: IconsaxBold.sms,
                               ),
                               RoundedPasswordField(
+                                label: 'Password',
                                 controller: _passwordController,
                               ),
                               buttonComp(),

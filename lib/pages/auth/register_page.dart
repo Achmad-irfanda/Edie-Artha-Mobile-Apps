@@ -59,6 +59,7 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController _nameController = TextEditingController();
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+  TextEditingController _konfirmController = TextEditingController();
 
   bool _isDisabledBtn = false;
 
@@ -316,7 +317,19 @@ class _RegisterPageState extends State<RegisterPage> {
                                 },
                               ),
                               RoundedPasswordField(
+                                label: 'Password',
                                 controller: _passwordController,
+                              ),
+                              RoundedPasswordField(
+                                label: 'Konfirmasi Password',
+                                controller: _konfirmController,
+                                validator: (value) {
+                                  if (value != _passwordController) {
+                                    return 'Passowrd Tidak Sama';
+                                  } else {
+                                    return null;
+                                  }
+                                },
                               ),
                               if (_isDisabledBtn)
                                 allowButtonComps()
