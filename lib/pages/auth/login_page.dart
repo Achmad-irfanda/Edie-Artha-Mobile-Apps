@@ -17,7 +17,7 @@ import '../../common/widget/under_part.dart';
 import '../../common/widget/upside.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -115,6 +115,7 @@ class _LoginPageState extends State<LoginPage> {
       child: Scaffold(
         body: Container(
           decoration: BoxDecoration(gradient: linearBackround),
+          height: size.height,
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -124,7 +125,6 @@ class _LoginPageState extends State<LoginPage> {
                 Container(
                   constraints: BoxConstraints(maxHeight: size.height - 100),
                   margin: EdgeInsets.symmetric(horizontal: 10),
-                  width: double.infinity,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(12)),
@@ -185,7 +185,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                jar(sized: 20),
               ],
             ),
           ),

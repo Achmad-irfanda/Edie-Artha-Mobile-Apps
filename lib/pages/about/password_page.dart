@@ -28,8 +28,8 @@ class _PasswordPageState extends State<PasswordPage> {
 
   // GANTI KATA SANDI
   handleChangePassword() async {
-    String password = currentPassController!.text.trim();
-    String newPassword = newPassController!.text.trim();
+    String password = currentPassController.text.trim();
+    String newPassword = newPassController.text.trim();
 
     context
         .read<UserBloc>()
@@ -58,7 +58,7 @@ class _PasswordPageState extends State<PasswordPage> {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [
+              colors: const [
                 Color(0xff02F80B),
                 Color(0xff194E1A),
               ], // Warna gradien

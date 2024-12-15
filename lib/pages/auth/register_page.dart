@@ -199,6 +199,12 @@ class _RegisterPageState extends State<RegisterPage> {
     context.read<RegisterBloc>().add(RegisterEvent.register(model));
   }
 
+  Future<String> validCheck()async {
+    if(_passwordController != ""){
+       
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -325,12 +331,17 @@ class _RegisterPageState extends State<RegisterPage> {
                                 controller: _konfirmController,
                                 validator: (value) {
                                   if (value != _passwordController) {
+                                    print("password tida"); 
                                     return 'Passowrd Tidak Sama';
                                   } else {
                                     return null;
                                   }
                                 },
                               ),
+                              
+
+
+
                               if (_isDisabledBtn)
                                 allowButtonComps()
                               else
