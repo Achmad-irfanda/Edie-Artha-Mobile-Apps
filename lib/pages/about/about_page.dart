@@ -215,7 +215,7 @@ class _AboutPageState extends State<AboutPage> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
+            colors: const [
               Color(0xff02F80B),
               Color(0xff194E1A),
             ], // Warna gradien
