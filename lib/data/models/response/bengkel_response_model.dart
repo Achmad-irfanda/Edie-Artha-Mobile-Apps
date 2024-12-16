@@ -1,88 +1,93 @@
 import 'dart:convert';
 
 class BengkelResponseModel {
-  final Meta? meta;
-  final Data? data;
+  final Meta meta;
+  final Data data;
 
   BengkelResponseModel({
-    this.meta,
-    this.data,
+    required this.meta,
+    required this.data,
   });
 
-  factory BengkelResponseModel.fromJson(String str) =>
-      BengkelResponseModel.fromMap(json.decode(str));
+  factory BengkelResponseModel.fromRawJson(String str) =>
+      BengkelResponseModel.fromJson(json.decode(str));
 
-  String toJson() => json.encode(toMap());
+  String toRawJson() => json.encode(toJson());
 
-  factory BengkelResponseModel.fromMap(Map<String, dynamic> json) =>
+  factory BengkelResponseModel.fromJson(Map<String, dynamic> json) =>
       BengkelResponseModel(
-        meta: json["meta"] == null ? null : Meta.fromMap(json["meta"]),
-        data: json["data"] == null ? null : Data.fromMap(json["data"]),
+        meta: Meta.fromJson(json["meta"]),
+        data: Data.fromJson(json["data"]),
       );
 
-  Map<String, dynamic> toMap() => {
-        "meta": meta?.toMap(),
-        "data": data?.toMap(),
+  Map<String, dynamic> toJson() => {
+        "meta": meta.toJson(),
+        "data": data.toJson(),
       };
 }
 
 class Data {
-  final Transaction? transaction;
+  final Transaction transaction;
 
   Data({
-    this.transaction,
+    required this.transaction,
   });
 
-  factory Data.fromJson(String str) => Data.fromMap(json.decode(str));
+  factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
 
-  String toJson() => json.encode(toMap());
+  String toRawJson() => json.encode(toJson());
 
-  factory Data.fromMap(Map<String, dynamic> json) => Data(
-        transaction: json["transaction"] == null
-            ? null
-            : Transaction.fromMap(json["transaction"]),
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+        transaction: Transaction.fromJson(json["transaction"]),
       );
 
-  Map<String, dynamic> toMap() => {
-        "transaction": transaction?.toMap(),
+  Map<String, dynamic> toJson() => {
+        "transaction": transaction.toJson(),
       };
 }
 
 class Transaction {
-  final int? id;
-  final String? userId;
-  final String? alamat;
-  final String? kendala;
-  final String? deskripsi;
-  final String? jenisKendaraan;
-  final String? platNomor;
-  final String? rating;
-  final String? status;
-  final DateTime? createdAt;
+  final int id;
+  final int userId;
+  final dynamic mekanikId;
+  final String alamat;
+  final String kendala;
+  final String deskripsi;
+  final String jenisKendaraan;
+  final String platNomor;
+  final dynamic rating;
+  final String status;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final String gambar;
   final Mekanik? mekanik;
 
   Transaction({
-    this.id,
-    this.userId,
-    this.alamat,
-    this.kendala,
-    this.deskripsi,
-    this.jenisKendaraan,
-    this.platNomor,
-    this.rating,
-    this.status,
-    this.createdAt,
+    required this.id,
+    required this.userId,
+    required this.mekanikId,
+    required this.alamat,
+    required this.kendala,
+    required this.deskripsi,
+    required this.jenisKendaraan,
+    required this.platNomor,
+    required this.rating,
+    required this.status,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.gambar,
     this.mekanik,
   });
 
-  factory Transaction.fromJson(String str) =>
-      Transaction.fromMap(json.decode(str));
+  factory Transaction.fromRawJson(String str) =>
+      Transaction.fromJson(json.decode(str));
 
-  String toJson() => json.encode(toMap());
+  String toRawJson() => json.encode(toJson());
 
-  factory Transaction.fromMap(Map<String, dynamic> json) => Transaction(
+  factory Transaction.fromJson(Map<String, dynamic> json) => Transaction(
         id: json["id"],
         userId: json["user_id"],
+        mekanikId: json["mekanik_id"],
         alamat: json["alamat"],
         kendala: json["kendala"],
         deskripsi: json["deskripsi"],
@@ -90,16 +95,17 @@ class Transaction {
         platNomor: json["plat_nomor"],
         rating: json["rating"],
         status: json["status"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+        gambar: json["gambar"],
         mekanik:
             json["mekanik"] == null ? null : Mekanik.fromMap(json["mekanik"]),
       );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "user_id": userId,
+        "mekanik_id": mekanikId,
         "alamat": alamat,
         "kendala": kendala,
         "deskripsi": deskripsi,
@@ -107,8 +113,38 @@ class Transaction {
         "plat_nomor": platNomor,
         "rating": rating,
         "status": status,
-        "created_at": createdAt?.toIso8601String(),
-        "mekanik": mekanik?.toMap(),
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+        "gambar": gambar,
+        "mekanik": mekanik,
+      };
+}
+
+class Meta {
+  final int code;
+  final String status;
+  final String message;
+
+  Meta({
+    required this.code,
+    required this.status,
+    required this.message,
+  });
+
+  factory Meta.fromRawJson(String str) => Meta.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Meta.fromJson(Map<String, dynamic> json) => Meta(
+        code: json["code"],
+        status: json["status"],
+        message: json["message"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "code": code,
+        "status": status,
+        "message": message,
       };
 }
 
@@ -145,33 +181,5 @@ class Mekanik {
         "nohp": nohp,
         "jabatan": jabatan,
         "image": image,
-      };
-}
-
-class Meta {
-  final int? code;
-  final String? status;
-  final String? message;
-
-  Meta({
-    this.code,
-    this.status,
-    this.message,
-  });
-
-  factory Meta.fromJson(String str) => Meta.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory Meta.fromMap(Map<String, dynamic> json) => Meta(
-        code: json["code"],
-        status: json["status"],
-        message: json["message"],
-      );
-
-  Map<String, dynamic> toMap() => {
-        "code": code,
-        "status": status,
-        "message": message,
       };
 }
