@@ -61,12 +61,15 @@ class _BengkelDetailState extends State<BengkelDetail> {
               onRefresh: () {
                 return _getData();
               },
-              child: CustomScrollView(
-                slivers: [
-                  SliverToBoxAdapter(
-                    child: DetailItem(trx: data!.data!.transaction!),
-                  )
-                ],
+              child: SizedBox(
+                 height:size.height * 2,
+                child: CustomScrollView(
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: DetailItem(trx: data!.data!.transaction!),
+                    )
+                  ],
+                ),
               ),
             );
           });

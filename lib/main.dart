@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         title: 'Edie Arta Motor',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          useMaterial3: false,
+          useMaterial3: true,
         ),
         home: const SplashPage(),
       ),

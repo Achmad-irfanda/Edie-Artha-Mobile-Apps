@@ -44,8 +44,7 @@ class BengkelRemoteDatesource {
 
     // Send the request
     var response = await request.send();
-
-    print("e$response");
+    
     // Check the response
     if (response.statusCode == 200) {
       // Convert the response to a string
@@ -55,33 +54,8 @@ class BengkelRemoteDatesource {
       // Handle error response
       final mess =
           jsonDecode(await response.stream.bytesToString())['meta']['message'];
-      print(mess);
       return Left(mess);
     }
-
-    // final token = await AuthLocalDatasource().getToken();
-    // final headers = {
-    //   'Accept': 'application/json',
-    //   'Authorization': 'Bearer $token'
-    // };
-
-    // final response = await http.post(
-    //   Uri.parse("${Variables.baseUrl}api/trx/workshop"),
-    //   headers: headers,
-    //   body: model.toJson(),
-    // );
-
-    // String filePath = valuesImageComp!;
-    // var gambar = await http.MultipartFile.fromPath('gambar', filePath);
-
-    // print('response $response');
-
-    // if (response.statusCode == 200) {
-    //   return Right(BengkelResponseModel.fromJson(response.body));
-    // } else {
-    //   final mess = jsonDecode(response.body)['meta']['message'];
-    //   return Left(mess);
-    // }
   }
 
   Future<Either<String, TrxBengkelResponseModel>> getAll(String status) async {
@@ -140,8 +114,6 @@ class BengkelRemoteDatesource {
       Uri.parse("${Variables.baseUrl}api/trx/workshop?id=$id"),
       headers: headers,
     );
-
-    print(response.body);
 
     if (response.statusCode == 200) {
       return Right(BengkelResponseModel.fromJson(jsonDecode(response.body)));

@@ -423,57 +423,63 @@ class _AboutPageState extends State<AboutPage> {
       );
     }
 
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
-          child: Column(
-        children: [
-          header(),
-          SizedBox(
-            height: 30,
-          ),
-          Expanded(
+          constraints: BoxConstraints(maxHeight: size.height * 1.2),
+          child: IntrinsicHeight(
+            child: SingleChildScrollView(
               child: Column(
-            children: [
-              akun(),
-              SizedBox(
-                height: 20,
-              ),
-              info(),
-            ],
-          )),
-          Padding(
-            padding: const EdgeInsets.only(right: 30, left: 30, bottom: 20),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 10,
-                ),
-                GestureDetector(
-                  onTap: showLogoutDialog,
-                  child: Container(
-                    width: double.infinity,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Logout',
-                        style: GoogleFonts.inter(
-                          color: ColorName.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+                children: [
+                  header(),
+                  SizedBox(
+                    height: 30,
                   ),
-                )
-              ],
+                  Column(
+                    children: [
+                      akun(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      info(),
+                    ],
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(right: 30, left: 30, bottom: 20),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        GestureDetector(
+                          onTap: showLogoutDialog,
+                          child: Container(
+                            width: double.infinity,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Logout',
+                                style: GoogleFonts.inter(
+                                  color: ColorName.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
-          )
-        ],
-      )),
+          )),
     );
   }
 }

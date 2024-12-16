@@ -1,4 +1,5 @@
 import 'package:eam_app/bloc/bengkel/bengkel_bloc.dart';
+import 'package:eam_app/common/constant/loading_dialog.dart';
 import 'package:eam_app/data/models/request/bengkel_request_model.dart';
 import 'package:eam_app/pages/auth/register_page.dart';
 import 'package:eam_app/pages/bengkel/bengkel_detail.dart';
@@ -84,7 +85,10 @@ class _BengkelPageState extends State<BengkelPage> {
       platNomor: plat,
     );
 
-    context.read<BengkelBloc>().add(BengkelEvent.bengkel(model));
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.pop(context);
+      context.read<BengkelBloc>().add(BengkelEvent.bengkel(model));
+    });
   }
 
   Widget header() {
@@ -166,7 +170,7 @@ class _BengkelPageState extends State<BengkelPage> {
             Navigator.pushAndRemoveUntil(context,
                 MaterialPageRoute(builder: (context) {
               return BengkelDetail(
-                id: data.data!.transaction!.id.toString(),
+                id: data.data.transaction.id.toString(),
                 isOrder: true,
               );
             }), (route) => false);
@@ -182,6 +186,7 @@ class _BengkelPageState extends State<BengkelPage> {
       builder: (context, state) {
         return GestureDetector(
           onTap: () {
+            loadingDialog(context: context); 
             if (_formKey.currentState!.validate()) {
               order();
             }

@@ -145,226 +145,228 @@ class _DetailItemState extends State<DetailItem> {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
       width: size.width * 0.8,
-      height: size.height * 0.85,
+       constraints: BoxConstraints(maxHeight:  size.height * 1.4),
       decoration: BoxDecoration(
         color: ColorName.white,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Column(
-        children: [
-          Image.asset(
-            Images.logoText,
-          ),
-          Divider(
-            color: ColorName.black,
-            height: 0,
-            thickness: 2,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  height: 200,
-                  width: 200,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    image: DecorationImage(
-                      image: NetworkImage(isMekanik
-                          ? widget.trx!.mekanik!.image!
-                          : 'https://i.ibb.co.com/gTRNYXN/mekanik.jpg'),
-                      fit: BoxFit.cover,
+      child: IntrinsicHeight(
+        child: Column(
+          children: [
+            Image.asset(
+              Images.logoText,
+            ),
+            Divider(
+              color: ColorName.black,
+              height: 0,
+              thickness: 2,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 200,
+                    width: 200,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      image: DecorationImage(
+                        image: NetworkImage(isMekanik
+                            ? widget.trx!.mekanik!.image!
+                            : 'https://i.ibb.co.com/gTRNYXN/mekanik.jpg'),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                isMekanik
-                    ? Text(
-                        widget.trx.mekanik!.nama ?? '',
-                        style: GoogleFonts.inter(
-                          color: ColorName.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    : Text(
-                        "Mekanik Edie Arta",
-                        style: GoogleFonts.inter(
-                          color: ColorName.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  child: Divider(
-                    color: ColorName.black,
-                    height: 0,
-                    thickness: 2,
+                  SizedBox(
+                    height: 10,
                   ),
-                ),
-                Text(
-                  "Detail Pesanan",
-                  style: GoogleFonts.inter(
-                    color: ColorName.black,
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
+                  isMekanik
+                      ? Text(
+                          widget.trx.mekanik!.nama ?? '',
+                          style: GoogleFonts.inter(
+                            color: ColorName.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      : Text(
+                          "Mekanik Edie Arta",
+                          style: GoogleFonts.inter(
+                            color: ColorName.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    child: Divider(
+                      color: ColorName.black,
+                      height: 0,
+                      thickness: 2,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextDisabledBengkel(
-                  label: 'Kendala yang dialami',
-                  value: widget.trx.kendala ?? '',
-                ),
-                TextDisabledBengkel(
-                  label: 'Alamat',
-                  value: widget.trx.alamat ?? '',
-                ),
-                TextDisabledBengkel(
-                  label: 'Status Pesanan',
-                  value: widget.trx.status ?? '',
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                isRated
-                    ? Column(
-                        children: [
-                          Text('Terimakasih telah memberikan rating'),
-                          Container(
-                            child: RatingBarIndicator(
-                              rating: rating,
-                              itemBuilder: (context, index) => Icon(
-                                Icons.star,
-                                color: Colors.amber,
+                  Text(
+                    "Detail Pesanan",
+                    style: GoogleFonts.inter(
+                      color: ColorName.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  TextDisabledBengkel(
+                    label: 'Kendala yang dialami',
+                    value: widget.trx.kendala ?? '',
+                  ),
+                  TextDisabledBengkel(
+                    label: 'Alamat',
+                    value: widget.trx.alamat ?? '',
+                  ),
+                  TextDisabledBengkel(
+                    label: 'Status Pesanan',
+                    value: widget.trx.status ?? '',
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  isRated
+                      ? Column(
+                          children: [
+                            Text('Terimakasih telah memberikan rating'),
+                            Container(
+                              child: RatingBarIndicator(
+                                rating: rating,
+                                itemBuilder: (context, index) => Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                ),
+                                itemCount: 5,
+                                itemSize: 50.0,
+                                direction: Axis.horizontal,
                               ),
-                              itemCount: 5,
-                              itemSize: 50.0,
-                              direction: Axis.horizontal,
+                            ),
+                          ],
+                        )
+                      : Column(
+                          children: [
+                            isRating
+                                ? Container(
+                                    child: Column(
+                                      children: [
+                                        Text('Berikan Rating kepada montir kami'),
+                                        RatingBar.builder(
+                                          initialRating: rating,
+                                          minRating: 1,
+                                          direction: Axis.horizontal,
+                                          allowHalfRating: true,
+                                          itemCount: 5,
+                                          itemPadding: EdgeInsets.symmetric(
+                                              horizontal: 4.0),
+                                          itemBuilder: (context, _) => Icon(
+                                            Icons.star,
+                                            color: Colors.amber,
+                                          ),
+                                          onRatingUpdate: (value) {
+                                            setState(() {
+                                              rating = value;
+                                            });
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : Text(
+                                    'Note: Anda dapat melakukan pembayaran langsung kepada montir jika kendala sudah selesai.',
+                                    style: GoogleFonts.inter(
+                                      color: ColorName.grey,
+                                      fontSize: 12,
+                                    ),
+                                    textAlign: TextAlign.justify,
+                                  )
+                          ],
+                        )
+                ],
+              ),
+            ),
+            Expanded(
+              child: SizedBox(),
+            ),
+            !isRated
+                ? Padding(
+                    padding:
+                        const EdgeInsets.only(right: 30, left: 30, bottom: 20),
+                    child: GestureDetector(
+                      onTap: () {
+                        if (isRating) {
+                          _rating();
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NavigationPage()),
+                          );
+                        }
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: isRating ? ColorName.green : ColorName.grey,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: Text(
+                            isRating ? 'Kirim Review' : 'Kembali',
+                            style: GoogleFonts.inter(
+                              color: ColorName.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ],
-                      )
-                    : Column(
-                        children: [
-                          isRating
-                              ? Container(
-                                  child: Column(
-                                    children: [
-                                      Text('Berikan Rating kepada montir kami'),
-                                      RatingBar.builder(
-                                        initialRating: rating,
-                                        minRating: 1,
-                                        direction: Axis.horizontal,
-                                        allowHalfRating: true,
-                                        itemCount: 5,
-                                        itemPadding: EdgeInsets.symmetric(
-                                            horizontal: 4.0),
-                                        itemBuilder: (context, _) => Icon(
-                                          Icons.star,
-                                          color: Colors.amber,
-                                        ),
-                                        onRatingUpdate: (value) {
-                                          setState(() {
-                                            rating = value;
-                                          });
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              : Text(
-                                  'Note: Anda dapat melakukan pembayaran langsung kepada montir jika kendala sudah selesai.',
-                                  style: GoogleFonts.inter(
-                                    color: ColorName.grey,
-                                    fontSize: 12,
-                                  ),
-                                  textAlign: TextAlign.justify,
-                                )
-                        ],
-                      )
-              ],
-            ),
-          ),
-          Expanded(
-            child: SizedBox(),
-          ),
-          !isRated
-              ? Padding(
-                  padding:
-                      const EdgeInsets.only(right: 30, left: 30, bottom: 20),
-                  child: GestureDetector(
-                    onTap: () {
-                      if (isRating) {
-                        _rating();
-                      } else {
+                        ),
+                      ),
+                    ),
+                  )
+                : Padding(
+                    padding:
+                        const EdgeInsets.only(right: 30, left: 30, bottom: 20),
+                    child: GestureDetector(
+                      onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => NavigationPage()),
                         );
-                      }
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: isRating ? ColorName.green : ColorName.grey,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: Text(
-                          isRating ? 'Kirim Review' : 'Kembali',
-                          style: GoogleFonts.inter(
-                            color: ColorName.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: ColorName.grey,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Kembali',
+                            style: GoogleFonts.inter(
+                              color: ColorName.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                )
-              : Padding(
-                  padding:
-                      const EdgeInsets.only(right: 30, left: 30, bottom: 20),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => NavigationPage()),
-                      );
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: ColorName.grey,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Kembali',
-                          style: GoogleFonts.inter(
-                            color: ColorName.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-        ],
+                  )
+          ],
+        ),
       ),
     );
   }
